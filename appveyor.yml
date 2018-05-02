@@ -24,6 +24,8 @@ build_script:
   - 7z x translations.tar
   - echo "Downloading qpdfview source tarball rev.%SRC_REV%"
   - ps: (New-Object Net.WebClient).DownloadFile("https://bazaar.launchpad.net/~adamreichold/qpdfview/trunk/tarball/$env:SRC_REV", "$env:APPVEYOR_BUILD_FOLDER\qpdfview.tar.gz")
+  - 7z x qpdfview.tar.gz
+  - 7z x qpdfview.tar
   - set HTML_TEMPLATE=~adamreichold\qpdfview\trunk\help\help.html
   - set PO_DIR=~adamreichold\qpdfview\translations-export
   - mkdir qpdfview-translations
