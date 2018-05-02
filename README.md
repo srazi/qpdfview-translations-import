@@ -1,0 +1,1 @@
+# qpdfview-translations-import
