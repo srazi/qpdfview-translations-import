@@ -15,7 +15,7 @@ install:
   - pip install virtualenvwrapper-win
   - mkvirtualenv ttk
   - pip install translate-toolkit
-  - po2prop -version
+  - po2prop --version
 
 build_script:
   - echo "Downloading translation tarball rev.%TRANS_REV%"
