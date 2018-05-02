@@ -1,0 +1,42 @@
+image:
+    - Visual Studio 2015
+
+environment:
+  global:
+    TRANS_REV: 361
+    QTDIR: C:\Qt\5.10.1\msvc2015
+
+version: rev.$(trans_rev)-{build}
+
+install:
+  - set PATH=%QTDIR%\bin;%PATH%
+  - echo "Downloading translation tarball rev.%TRANS_REV%"
+  - ps: (New-Object Net.WebClient).DownloadFile("https://bazaar.launchpad.net/~adamreichold/qpdfview/translations-export/tarball/$env:TRANS_REV", "$env:APPVEYOR_BUILD_FOLDER\translations.tar.gz")
+  - 7z x translations.tar.gz
+  - 7z x translations.tar
+  - set PO_DIR=~adamreichold\qpdfview\translations-export
+  - mkdir ts
+  - mkdir ts\help
+  - mkdir qm
+  - mkdir qm\help
+
+build_script:
+  - for %%i in (%PO_DIR%\*) do lconvert -locations relative %%i -o ts\%%~ni.ts
+  - for %%i in (%PO_DIR%\help\*) do lconvert -locations relative %%i -o ts\help\%%~ni.ts
+  - for %%i in (ts\*) do lrelease %%i -qm qm\%%~ni.qm
+  - for %%i in (ts\help\*) do lrelease %%i -qm qm\help\%%~ni.qm
+
+after_build:
+  - 7z a qpdfview-translation_qt_rev%TRANS_REV%.zip ts
+  - 7z a qpdfview-translation_qt_rev%TRANS_REV%.zip qm
+
+artifacts:
+   - path: qpdfview-translation_qt_rev%TRANS_REV%.zip 
+     name: QPDFView Translation Qt (rev.%TRANS_REV%)
+
+# init:
+  # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+# # remote desktop connection on finish and block build to not destroy VM
+# on_finish:
+  # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
