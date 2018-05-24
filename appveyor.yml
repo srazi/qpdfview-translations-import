@@ -11,11 +11,11 @@ version: $(src_rev).trans-rev$(trans_rev)-{build}
 
 install:
   - set PATH=%QTDIR%\bin;%PATH%
-  - echo "Installing translate-toolkit..."
-  - pip install virtualenvwrapper-win
-  - mkvirtualenv ttk
-  - pip install translate-toolkit
-  - po2prop --version
+  # - echo "Installing translate-toolkit..."
+  # - pip install virtualenvwrapper-win
+  # - mkvirtualenv ttk
+  # - pip install translate-toolkit
+  # - po2prop --version
 
 build_script:
   - echo "Downloading translation tarball rev.%TRANS_REV%"
@@ -32,8 +32,15 @@ build_script:
   - mkdir qpdfview-translations\ts
   - mkdir qpdfview-translations\help
 #############################
-  - for %%i in (%PO_DIR%\*) do lconvert -locations relative %%i -o qpdfview-translations\ts\qpdfview_%%~ni.ts
-  - po2html -t %HTML_TEMPLATE% "%PO_DIR%\help" qpdfview-translations\help
+
+  - ps: (New-Object Net.WebClient).DownloadFile("https://github.com/mquinson/po4a/archive/v0.52.zip", "$env:APPVEYOR_BUILD_FOLDER\po4a.zip")
+  - 7z x po4a.zip
+  - dir
+  - set PERLLIB=%APPVEYOR_BUILD_FOLDER%\po4a\lib %APPVEYOR_BUILD_FOLDER%\po4a\po4a-gettextize %PERLLIB%
+#############################
+  - for %%i in (%PO_DIR%\*) do lconvert -i %%i -o qpdfview-translations\ts\qpdfview_%%~ni.ts
+  - for %%i in (%PO_DIR%\help) do po4a-translate -k 0 --format xhtml --master-charset utf-8 --localized-charset utf-8 --master %HTML_TEMPLATE% --po %%i --localized qpdfview-translations\help\help_%%~ni.html
+#  - po2html -t %HTML_TEMPLATE% "%PO_DIR%\help" qpdfview-translations\help
 
 after_build:
   - 7z a qpdfview-translation_qt_rev%SRC_REV%.%TRANS_REV%.zip qpdfview-translations
@@ -42,9 +49,9 @@ artifacts:
    - path: qpdfview-translation_qt_rev%SRC_REV%.%TRANS_REV%.zip
      name: QPDFView Translation Qt (rev %SRC_REV%.%TRANS_REV%)
 
-# init:
-  # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
-# # remote desktop connection on finish and block build to not destroy VM
-# on_finish:
-  # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# remote desktop connection on finish and block build to not destroy VM
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
