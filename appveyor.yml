@@ -36,7 +36,7 @@ build_script:
   - ps: (New-Object Net.WebClient).DownloadFile("https://github.com/mquinson/po4a/archive/v0.52.zip", "$env:APPVEYOR_BUILD_FOLDER\po4a.zip")
   - 7z x po4a.zip
   - dir
-  - set PERLLIB=%APPVEYOR_BUILD_FOLDER%\po4a\lib %APPVEYOR_BUILD_FOLDER%\po4a\po4a-gettextize %PERLLIB%
+  - set PERLLIB=%APPVEYOR_BUILD_FOLDER%\po4a-0.52\lib;%APPVEYOR_BUILD_FOLDER%\po4a-0.52\po4a-gettextize;%PERLLIB%
 #############################
   - for %%i in (%PO_DIR%\*) do lconvert -i %%i -o qpdfview-translations\ts\qpdfview_%%~ni.ts
   - for %%i in (%PO_DIR%\help) do po4a-translate -k 0 --format xhtml --master-charset utf-8 --localized-charset utf-8 --master %HTML_TEMPLATE% --po %%i --localized qpdfview-translations\help\help_%%~ni.html
