@@ -39,7 +39,7 @@ build_script:
   - set PERLLIB=%APPVEYOR_BUILD_FOLDER%\po4a-0.52\lib;%APPVEYOR_BUILD_FOLDER%\po4a-0.52\po4a-gettextize;%PERLLIB%
 #############################
   - for %%i in (%PO_DIR%\*) do lconvert -i %%i -o qpdfview-translations\ts\qpdfview_%%~ni.ts
-  - for %%i in (%PO_DIR%\help) do po4a-translate -k 0 --format xhtml --master-charset utf-8 --localized-charset utf-8 --master %HTML_TEMPLATE% --po %%i --localized qpdfview-translations\help\help_%%~ni.html
+  - for %%i in (%PO_DIR%\help) do perl po4a-0.52\po4a-translate -k 0 --format xhtml --master-charset utf-8 --localized-charset utf-8 --master %HTML_TEMPLATE% --po %%i --localized qpdfview-translations\help\help_%%~ni.html
 #  - po2html -t %HTML_TEMPLATE% "%PO_DIR%\help" qpdfview-translations\help
 
 after_build:
