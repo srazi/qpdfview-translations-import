@@ -9,7 +9,7 @@ do
 
     echo "Converting translation of locale "${locale}
     sed -i "s/^\"X-Generator:..*/\"X-Qt-Contexts: true\\\\n\"/" ${source_dir}/${source_file}
-    sed -i s/2012-2016/2012-%1/ ${source_dir}/${source_file}
+    sed -i s/2012-2016/%1/ ${source_dir}/${source_file}
     sed -i -r  "/^msgctxt \"[^Qq][^:]+\"/ s/^msgctxt \"([^Qq][^:|\"]+)|\"$/msgctxt \"qpdfview::\1/" ${source_dir}/${source_file}
     sed -i "/^#\\s/ d" ${source_dir}/${source_file}
     sed -i "/^#$/ d" ${source_dir}/${source_file}
