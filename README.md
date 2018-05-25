@@ -1,1 +1,2 @@
 # qpdfview-translations-import
+**Unofficial**
