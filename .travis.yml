@@ -24,25 +24,33 @@ script:
   - LCONVERT="lconvert"
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
          if [[ "$QT" == "qt59" ]]; then
-             LCONVERT="/opt/qt59/bin/qmake";
+             LCONVERT="/opt/qt59/bin/lconvert";
          fi
     fi
+  - export LCONVERT_CMD=$LCONVERT
   - wget "https://bazaar.launchpad.net/~adamreichold/qpdfview/trunk/tarball/$APP_REV"
-  - wget "https://bazaar.launchpad.net/~adamreichold/qpdfview/translations-export/tarball/$SRC_REV"
+  - wget "https://bazaar.launchpad.net/~adamreichold/qpdfview/translations-export/tarball/$TRANS_REV"
   - tar -xvf $APP_REV
-  - tar -xvf $SRC_REV
+  - tar -xvf $TRANS_REV
   - mv scripts \~adamreichold/qpdfview/
   - cd \~adamreichold/qpdfview/
   - cd scripts
   - sh convert_help.sh
-  - sh convert_translation.sh
+  - sh convert_translation.sh ast az be bg bs ca cs da de el en_AU en_GB eo es eu fa fi fr gl he hr hu id it ja kk ko ku ky lt lv ms my nb nds oc pl pt_BR pt ro ru sk sr sv th tr ug uk uz vi zh_CN zh_TW
   - cd ../trunk
-  - tar -zcvf qpdfview-$SRC_REV_$TRANS_REV.tar.gz .
+  - ls
+  - tar -zcvf ../qpdfview.tar.gz .
+  - cd ..
+  - ls -l
+  - ls -l $ROOT_DIR/\~adamreichold/qpdfview/qpdfview.tar.gz
   - ccache --show-stats
 
 deploy:
   provider: releases
   api_key:
-    secure: "vG3PnIRC0n0PZAwZ5zCpSj5JzrUqAwz+mcJPEZuBwnimN0XllV/NKhEUcid4WCMwTXnMy8Vxb/dB3v0xu0eSzdpE9GM7z4yNU9kitW5nPEkXl3CdCWTD16TFP70z3485D6YxngdeDu66kUzws7rUGwNB+SxoUK973gfD+89K2tIXhskow+F8h68AaES6rSEG15pWd1a1JLRNlU25N2dEsbuLG3aUBFJ5SbQMEML/cWbt5cLzmTXONwRKH0GSOL5k05lYQEUt11RGKVM/mnaYyRswEINove9EOSe2GujlnwGdgFxxg7V/xLx9CXAnwmnceqjSsO/4AwcFRuYn9CCyVzC1U68V17lKu44ImotYLlELZbs58GWz6qUVpjRw/pRBg0AX3mRu0gU9X+hkvvulUvTvVCYP204gJLPN9tchsPBFvNgr1GgjgRubCFRz9VpVdNNZcETn3q4t/RoNsfjzHL1QGjaWzKkTQ3clxLnhhRmGYZnacdcSkswRYWsOrvbonhiibqnnQWt1PuB+TebymSE/peDykwt4AHqkmgIxp0MeBF9U4XWMm0Bzy6h1BL3Ve50j37KMKP2HMVhxjbqpUkTiAX1Kr3azhNs27MjqOskaTpVCuytLG/HOPsN3Hvr67HAtOK+YkBp2gaAYyyB/KyOQnBtXGurKUd9yHmLXdic="
-  file: $ROOT_DIR/\~adamreichold/qpdfview/qpdfview-$SRC_REV_$TRANS_REV.tar.gz
+    secure: "NdMMULi9tYWikscHnotFjIsZXJ4d4N1jdr0rM8hz0Do5VhQx8EF9OJgGcWLsyO+By9E8ocEN7rMriBLIi/fCo3W44K5qvLvmur4GwQudAazy6zJDfe9mf+/i+2B2GzT1nbIFFCLRMDuK1c+1mvhyMq1B3Y/2cXjQPZBcjmjkuFCgESrvvHjAARkunctYfkyWxuNSAJ4L3InviQKodGK7IwOva0QDe4gWS7gdL8dAX0s3XnqbAnkKTWH+UnanoQ/bxf/c7v9VgNbIKXmbb0KkGV0H8GFSsu5Ob09BufNaYUcDWt49pPsDOPqcoIUWdV9So4Na/PkjtCdGMIwk4pJLjMNQjf5WWTeFOK8N23Sz0cXpYMMS/NMmF0Z980PzAahwcr6geH/4/iOiWO79xmC7XwCcz/a1oUKiWiJPDzft8q61M619tzar6YfLHsMqXzguEnAZHiRlUKDIP5ADNjYfzu+uOpKjcwEczr8NSpEsTbVBG7x+sYlOSExSAFMIeFe2KIWfatZ/Jk/TcLf11H5DxBZWND6Fbr+fPuIe7R8sBjn2OTwVTD0+b8NnDBMIXaX/C63rmvNC5DaFipANrwOH7ck0wrkzj4+UOQEyHFyQBBNWpJgrqShR4AQpANSdUEOD8tvv1DGA935pXOq8YrYOUXUdtt0b8lzU4CCf29QDSY8="
+  file:
+    - $ROOT_DIR/\~adamreichold/qpdfview/qpdfview.tar.gz
+    - $ROOT_DIR/~adamreichold/qpdfview/qpdfview.tar.gz
+    - qpdfview.tar.gz
   skip_cleanup: true
