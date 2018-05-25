@@ -14,7 +14,7 @@ do
     sed -i "/^#\\s/ d" ${source_dir}/${source_file}
     sed -i "/^#$/ d" ${source_dir}/${source_file}
 
-    $LCONVERT_CMD -i ${source_dir}/${source_file} -o ${dest_dir}/${dest_file}
+    $LCONVERT_CMD -no-obsolete -i ${source_dir}/${source_file} -o ${dest_dir}/${dest_file}
 
     sed -i "/^\\s*<extra-po-header.*/ d" ${dest_dir}/${dest_file}
     sed -i "s/<translation>/<translation type=\"unfinished\">/" ${dest_dir}/${dest_file}
