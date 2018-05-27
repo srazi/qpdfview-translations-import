@@ -9,7 +9,7 @@ matrix:
       env: QT=qt59
 
 install:
-  - export APP_REV=2077
+  - export APP_REV=2080
   - export TRANS_REV=362
   - export ROOT_DIR=$PWD
   - sudo apt-get -qq update;
