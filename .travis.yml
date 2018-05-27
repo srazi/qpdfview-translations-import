@@ -40,7 +40,7 @@ script:
   - sh convert_translation1.sh ast az be bg bs ca cs da de el en_AU en_GB eo es eu fa fi fr gl he hr hu id it ja kk ko ku ky lt lv ms my nb nds oc pl pt_BR pt ro ru sk sr sv th tr ug uk uz vi zh_CN zh_TW
   - cd ../trunk
   - ls
-  - tar -zcvf ../qpdfview-$APP_REV-$TRANS_REV_1.tar.gz .
+  - tar -zcvf ../qpdfview-pyscript-$APP_REV-$TRANS_REV.tar.gz .
   - cd ../scripts
   - sh convert_translation.sh ast az be bg bs ca cs da de el en_AU en_GB eo es eu fa fi fr gl he hr hu id it ja kk ko ku ky lt lv ms my nb nds oc pl pt_BR pt ro ru sk sr sv th tr ug uk uz vi zh_CN zh_TW
   - cd ../trunk
@@ -63,5 +63,5 @@ deploy:
     secure: "NdMMULi9tYWikscHnotFjIsZXJ4d4N1jdr0rM8hz0Do5VhQx8EF9OJgGcWLsyO+By9E8ocEN7rMriBLIi/fCo3W44K5qvLvmur4GwQudAazy6zJDfe9mf+/i+2B2GzT1nbIFFCLRMDuK1c+1mvhyMq1B3Y/2cXjQPZBcjmjkuFCgESrvvHjAARkunctYfkyWxuNSAJ4L3InviQKodGK7IwOva0QDe4gWS7gdL8dAX0s3XnqbAnkKTWH+UnanoQ/bxf/c7v9VgNbIKXmbb0KkGV0H8GFSsu5Ob09BufNaYUcDWt49pPsDOPqcoIUWdV9So4Na/PkjtCdGMIwk4pJLjMNQjf5WWTeFOK8N23Sz0cXpYMMS/NMmF0Z980PzAahwcr6geH/4/iOiWO79xmC7XwCcz/a1oUKiWiJPDzft8q61M619tzar6YfLHsMqXzguEnAZHiRlUKDIP5ADNjYfzu+uOpKjcwEczr8NSpEsTbVBG7x+sYlOSExSAFMIeFe2KIWfatZ/Jk/TcLf11H5DxBZWND6Fbr+fPuIe7R8sBjn2OTwVTD0+b8NnDBMIXaX/C63rmvNC5DaFipANrwOH7ck0wrkzj4+UOQEyHFyQBBNWpJgrqShR4AQpANSdUEOD8tvv1DGA935pXOq8YrYOUXUdtt0b8lzU4CCf29QDSY8="
   file:
     - $ROOT_DIR/~adamreichold/qpdfview/qpdfview-$APP_REV-$TRANS_REV.tar.gz
-    - $ROOT_DIR/~adamreichold/qpdfview/qpdfview-$APP_REV-$TRANS_REV_1.tar.gz
+    - $ROOT_DIR/~adamreichold/qpdfview/qpdfview-pyscript-$APP_REV-$TRANS_REV.tar.gz
   skip_cleanup: true
