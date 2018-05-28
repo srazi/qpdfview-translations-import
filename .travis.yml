@@ -1,36 +1,20 @@
 dist: trusty
 
-matrix:
-  include:
-    - os: linux
-      env: QT=qt59
-
-if: branch = master
+addons:
+  apt:
+    sources:
+    - sourceline: 'ppa:beineri/opt-qt593-trusty'
+    packages:
+    - po4a
+    - qt59tools
 
 before_install:
   - export APP_REV=2080
   - export TRANS_REV=362
   - export ROOT_DIR=$PWD
 
-  - sudo apt-get -qq update;
-  - sudo apt-get -qq install po4a;
-  - sudo apt-get -qq install python3
-
-  - if [[ "$QT" == "qt59" ]]; then
-        sudo apt-add-repository -y ppa:beineri/opt-qt593-trusty;
-        sudo apt-get update -qq;
-        sudo apt-get install -qq qt59tools;
-    fi
-
 install:
-  - LCONVERT="lconvert"
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-         if [[ "$QT" == "qt59" ]]; then
-             LCONVERT="/opt/qt59/bin/lconvert";
-         fi
-    fi
-
-  - export LCONVERT_CMD=$LCONVERT
+  - export lconvert_cmd="/opt/qt59/bin/lconvert"
 
   - wget "https://bazaar.launchpad.net/~adamreichold/qpdfview/trunk/tarball/$APP_REV"
   - wget "https://bazaar.launchpad.net/~adamreichold/qpdfview/translations-export/tarball/$TRANS_REV"
@@ -48,6 +32,7 @@ script:
 
 before_deploy:
   - cd ../trunk
+  - /opt/qt59/bin/lupdate -no-obsolete qpdfview.pro
   - tar -zcvf ../qpdfview-$APP_REV-$TRANS_REV.tar.gz .
 
   # Set up git user name and tag this commit
@@ -62,3 +47,5 @@ deploy:
   file:
     - $ROOT_DIR/~adamreichold/qpdfview/qpdfview-$APP_REV-$TRANS_REV.tar.gz
   skip_cleanup: true
+  on:
+    branch: master
