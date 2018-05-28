@@ -5,6 +5,8 @@ matrix:
     - os: linux
       env: QT=qt59
 
+if: branch = master
+
 before_install:
   - export APP_REV=2080
   - export TRANS_REV=362
