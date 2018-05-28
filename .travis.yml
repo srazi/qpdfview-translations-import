@@ -10,7 +10,7 @@ addons:
 
 before_install:
   - export APP_REV=2080
-  - export TRANS_REV=362
+  - export TRANS_REV=363
   - export ROOT_DIR=$PWD
 
 install:
