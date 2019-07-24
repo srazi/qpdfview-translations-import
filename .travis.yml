@@ -11,8 +11,8 @@ addons:
     - qt59tools
 
 before_install:
-  - export APP_REV=2083
-  - export TRANS_REV=375
+  - export APP_REV=2091
+  - export TRANS_REV=390
   - export ROOT_DIR=$PWD
 
 install:
