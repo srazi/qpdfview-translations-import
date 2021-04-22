@@ -1,5 +1,5 @@
-source_dir=$(dirname $0)/../trunk/translations
-dest_dir=$(dirname $0)/../translations-export
+source_dir=$(dirname $0)/../../trunk/translations
+dest_dir=$(dirname $0)/../../translations-export
 
 source_file=qpdfview_ast.ts
 dest_file=qpdfview.pot

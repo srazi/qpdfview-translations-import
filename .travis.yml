@@ -11,8 +11,8 @@ addons:
     - qt59tools
 
 before_install:
-  - export APP_REV=2094
-  - export TRANS_REV=399
+  - export APP_REV=2122
+  - export TRANS_REV=423
   - export ROOT_DIR=$PWD
 
 install:
@@ -30,7 +30,7 @@ script:
   - cd \~adamreichold/qpdfview/scripts
 
   - sh convert_help.sh
-  - sh convert_translation.sh ast az be bg bs ca cs da de el en_AU en_GB eo es eu fa fi fr gl he hr hu id it ja kk ko ku ky lt lv ms my nb nds oc pl pt_BR pt ro ru sk sr sv th tr ug uk uz vi zh_CN zh_TW
+  - sh convert_translation.sh ast ber az be bg bs ca cs da de el en_AU en_GB eo es eu fa fi fr gl he hi hr hu id it ja kk ko ku ky lt lv ms my nb nds oc pl pt_BR pt ro ru sk sr sv th tr ug uk uz vi zgh zh_CN zh_TW
 
 before_deploy:
   - cd ../trunk
